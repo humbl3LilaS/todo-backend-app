@@ -1,19 +1,27 @@
 import express, {Request, Response} from "express";
 import bodyParser from "body-parser";
-import dotenv from "dotenv";
+import "dotenv/config";
+import mongoose from "mongoose";
+import {todoRouter} from "./routes/Todo";
 
 const app = express();
 app.use(bodyParser.json());
 
-dotenv.config();
+
 
 const PORT = process.env.PORT || 3000;
 
-app.get("/", (req, res) => {
-    res.send("hello madafaka");
+app.use("/api/v1/todos",todoRouter)
+app.get("/", async (req, res) => {
+    res.send("hello")
 });
 
 
-app.listen(PORT, () => {
-    console.log(`Server is listening at port ${PORT}`);
-});
+
+try {
+    mongoose.connect(process.env.DB_URI as string).then(r => console.log("DB server connected"));
+    app.listen(PORT, () => {
+        console.log(`Server is listening at port ${PORT}`);
+    });
+} catch (e) {
+}
