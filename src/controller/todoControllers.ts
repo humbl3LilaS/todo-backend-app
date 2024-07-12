@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {createTodo, getAllTodos, updateTodo} from "../service/TodosServices";
+import {createTodo, getAllTodos, getTodoById, updateTodo} from "../service/TodosServices";
 import mongoose from "mongoose";
 
 export const getAllTodosController = async (req: Request, res: Response) => {
@@ -12,6 +12,21 @@ export const getAllTodosController = async (req: Request, res: Response) => {
         } else {
             res.status(404).json({error: "Content Not Found"});
         }
+    }
+};
+
+export const getTodoByIdController = async (req: Request, res: Response) => {
+    const id = req.params.id;
+    try {
+        const todo = await getTodoById(id);
+        if (todo) {
+            res.status(200).json(todo);
+        } else {
+            res.status(400).json({error: "Invalid Todo"});
+        }
+    } catch (e) {
+        console.log(e);
+        res.sendStatus(404);
     }
 };
 

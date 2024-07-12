@@ -3,6 +3,11 @@ import {TTodoSchema} from "../types/schemaTypes";
 
 export const getAllTodos = async () => Todo.find({}, undefined, {lean: true, projection: undefined});
 
+export const getTodoById = async (id: string) => Todo.findById({_id: id}, undefined, {
+    lean: true,
+    projection: undefined
+});
+
 export const createTodo = async (data: TTodoSchema) => {
     const todo = new Todo(data);
     await todo.save();
