@@ -8,3 +8,12 @@ export const createTodo = async (data: TTodoSchema) => {
     await todo.save();
     return todo;
 };
+
+export const updateTodo = async (id: string, data: Partial<TTodoSchema>) => {
+    return Todo.findByIdAndUpdate({_id: id}, data, {
+        includeResultMetadata: true,
+        lean: true,
+        projection: undefined,
+        new: false
+    });
+};

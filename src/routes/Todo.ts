@@ -1,5 +1,5 @@
 import express from "express";
-import {createTodoController, getAllTodosController} from "../controller/todoControllers";
+import {createTodoController, getAllTodosController, updateTodoController} from "../controller/todoControllers";
 
 
 const todoRouter = express();
@@ -7,5 +7,7 @@ const todoRouter = express();
 todoRouter.get("/", getAllTodosController);
 
 todoRouter.post("/", createTodoController);
+
+todoRouter.put("/:id", updateTodoController);
 
 export {todoRouter};

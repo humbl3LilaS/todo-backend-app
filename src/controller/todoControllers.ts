@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {createTodo, getAllTodos} from "../service/TodosServices";
+import {createTodo, getAllTodos, updateTodo} from "../service/TodosServices";
 import mongoose from "mongoose";
 
 export const getAllTodosController = async (req: Request, res: Response) => {
@@ -10,7 +10,7 @@ export const getAllTodosController = async (req: Request, res: Response) => {
         if (e instanceof mongoose.Error.DocumentNotFoundError) {
             res.status(404).json({error: e.result});
         } else {
-            res.status(404).json({error: "Content Not Found"})
+            res.status(404).json({error: "Content Not Found"});
         }
     }
 };
@@ -31,5 +31,19 @@ export const createTodoController = async (req: Request, res: Response) => {
         } else {
             res.status(400).json({error: "Bad request: Creation Failed"});
         }
+    }
+};
+
+export const updateTodoController = async (req: Request, res: Response) => {
+    const id = req.params.id;
+    const updateData = req.body;
+    try {
+
+        const updatedTodo = await updateTodo(id, updateData);
+        if (updatedTodo) {
+            res.status(200).json({message: "Update Success"});
+        }
+    } catch (e) {
+        res.send(400).json({error: "failed"});
     }
 };
