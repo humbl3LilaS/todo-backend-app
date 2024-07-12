@@ -19,6 +19,7 @@ export const updateTodo = async (id: string, data: Partial<TTodoSchema>) => {
         includeResultMetadata: true,
         lean: true,
         projection: undefined,
-        new: false
+        new: false,
+        runValidators: true
     });
 };

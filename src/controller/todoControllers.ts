@@ -1,6 +1,7 @@
 import {Request, Response} from "express";
 import {createTodo, getAllTodos, getTodoById, updateTodo} from "../service/TodosServices";
-import mongoose from "mongoose";
+import mongoose, {ModifyResult} from "mongoose";
+import {TTodoSchema} from "../types/schemaTypes";
 
 export const getAllTodosController = async (req: Request, res: Response) => {
     try {
@@ -54,9 +55,12 @@ export const updateTodoController = async (req: Request, res: Response) => {
     const updateData = req.body;
     try {
 
-        const updatedTodo = await updateTodo(id, updateData);
-        if (updatedTodo) {
-            res.status(200).json({message: "Update Success"});
+        const updatedTodo = await updateTodo(id, updateData) as unknown as ModifyResult<TTodoSchema>;
+
+        if (updatedTodo.lastErrorObject?.updatedExisting) {
+            res.status(200).json(updatedTodo);
+        } else {
+            res.status(400).json({error: "Update Fail"});
         }
     } catch (e) {
         res.send(400).json({error: "failed"});
