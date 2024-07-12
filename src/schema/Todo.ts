@@ -26,9 +26,4 @@ const todosSchema = new mongoose.Schema<TTodoSchema>({
     }
 });
 
-
-// todosSchema.pre("save", function (next) {
-//     this.isFinished = false;
-// });
-
-export const Todo = mongoose.model<TTodoSchema>("Todos", todosSchema);
+export const Todo = mongoose.model("Todos", todosSchema);
