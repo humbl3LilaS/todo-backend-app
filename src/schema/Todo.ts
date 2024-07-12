@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, {Model} from "mongoose";
 import {TTodoSchema} from "../types/schemaTypes";
 
 const todosSchema = new mongoose.Schema<TTodoSchema>({
@@ -26,4 +26,7 @@ const todosSchema = new mongoose.Schema<TTodoSchema>({
     }
 });
 
-export const Todo = mongoose.model("Todos", todosSchema);
+
+type TodoModel = Model<TTodoSchema>
+
+export const Todo = mongoose.model<TTodoSchema, TodoModel>("Todos", todosSchema);
