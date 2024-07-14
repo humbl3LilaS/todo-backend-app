@@ -3,19 +3,19 @@ import bodyParser from "body-parser";
 import "dotenv/config";
 import mongoose from "mongoose";
 import {todoRouter} from "./routes/Todo";
+import {authRouter} from "./routes/Auth";
 
 const app = express();
 app.use(bodyParser.json());
 
 
-
 const PORT = process.env.PORT || 3000;
 
-app.use("/api/v1/todos",todoRouter)
+app.use("/api/v1/todos", todoRouter);
+app.use("/api/v1/auth", authRouter);
 app.get("/", async (req, res) => {
-    res.send("hello")
+    res.send("hello");
 });
-
 
 
 try {

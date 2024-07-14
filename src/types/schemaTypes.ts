@@ -8,3 +8,11 @@ export interface TTodoSchema {
     finishedAt?: number;
     priority?: Priority | 0;
 }
+
+export interface TUserSchema {
+    username: string,
+    email: string,
+    password: string,
+}
+
+export type QueryInterface<T> = T & { _id: string, __v: number }

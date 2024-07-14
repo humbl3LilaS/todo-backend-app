@@ -23,7 +23,7 @@ export const getTodoByIdController = async (req: Request, res: Response) => {
         if (todo) {
             res.status(200).json(todo);
         } else {
-            res.status(400).json({error: "Invalid Todo"});
+            res.status(400).json({error: "Invalid TodoSchema"});
         }
     } catch (e) {
         console.log(e);

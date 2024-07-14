@@ -29,4 +29,4 @@ const todosSchema = new mongoose.Schema<TTodoSchema>({
 
 type TodoModel = Model<TTodoSchema>
 
-export const Todo = mongoose.model<TTodoSchema, TodoModel>("Todos", todosSchema);
+export const TodoSchema = mongoose.model<TTodoSchema, TodoModel>("Todos", todosSchema);
