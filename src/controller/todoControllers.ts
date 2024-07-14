@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {createTodo, getAllTodos, getTodoById, updateTodo} from "../service/TodosServices";
+import {createTodo, deleteTodo, getAllTodos, getTodoById, updateTodo} from "../service/TodosServices";
 import mongoose, {ModifyResult} from "mongoose";
 import {TTodoSchema} from "../types/schemaTypes";
 
@@ -64,5 +64,20 @@ export const updateTodoController = async (req: Request, res: Response) => {
         }
     } catch (e) {
         res.send(400).json({error: "failed"});
+    }
+};
+
+
+export const deleteTodoController = async (req: Request, res: Response) => {
+    const id = req.params.id;
+    try {
+        const deletedTodo = await deleteTodo(id);
+        res.status(200).json(deletedTodo);
+    } catch (e) {
+        if (e instanceof mongoose.Error.CastError) {
+            res.status(400).json({error: "No such Id"});
+        } else {
+            res.status(400).json({error: "deletion failed"});
+        }
     }
 };

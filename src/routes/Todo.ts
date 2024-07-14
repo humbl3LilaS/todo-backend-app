@@ -1,6 +1,6 @@
 import express from "express";
 import {
-    createTodoController,
+    createTodoController, deleteTodoController,
     getAllTodosController,
     getTodoByIdController,
     updateTodoController
@@ -16,5 +16,7 @@ todoRouter.get("/:id", getTodoByIdController);
 todoRouter.post("/", createTodoController);
 
 todoRouter.put("/:id", updateTodoController);
+
+todoRouter.delete("/:id", deleteTodoController);
 
 export {todoRouter};

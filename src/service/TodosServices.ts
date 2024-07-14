@@ -23,3 +23,8 @@ export const updateTodo = async (id: string, data: Partial<TTodoSchema>) => {
         runValidators: true
     });
 };
+
+
+export const deleteTodo = async (id: String) => {
+    return Todo.findByIdAndDelete(id);
+};
