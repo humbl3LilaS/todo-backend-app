@@ -1,5 +1,5 @@
 import {Request, Response, NextFunction} from "express";
-import jwt, {JwtPayload} from "jsonwebtoken";
+import jwt, {JwtPayload, Secret} from "jsonwebtoken";
 
 export const authenticateUser = (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authentication as string;
@@ -9,7 +9,7 @@ export const authenticateUser = (req: Request, res: Response, next: NextFunction
     }
     try {
         const accessToken = token.split(" ")[1];
-        const decoded = jwt.verify(accessToken, process.env.JWT_SECRET) as JwtPayload;
+        const decoded = jwt.verify(accessToken, process.env.JWT_SECRET as Secret);
         // @ts-ignore
         req.user = decoded.data;
         next();

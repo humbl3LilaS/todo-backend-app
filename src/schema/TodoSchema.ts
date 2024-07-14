@@ -2,6 +2,8 @@ import mongoose, {Model} from "mongoose";
 import {TTodoSchema} from "../types/schemaTypes";
 
 const todosSchema = new mongoose.Schema<TTodoSchema>({
+    // @ts-ignore
+    author      : { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
     content: {
         type: String,
         required: [true, "Content is required"]

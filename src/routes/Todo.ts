@@ -5,18 +5,19 @@ import {
     getTodoByIdController,
     updateTodoController
 } from "../controller/todoControllers";
+import {authenticateUser} from "../middleware/AuthenticateUser";
 
 
 const todoRouter = express();
 
-todoRouter.get("/", getAllTodosController);
+todoRouter.get("/", authenticateUser, getAllTodosController);
 
-todoRouter.get("/:id", getTodoByIdController);
+todoRouter.get("/:id", authenticateUser, getTodoByIdController);
 
-todoRouter.post("/", createTodoController);
+todoRouter.post("/", authenticateUser, createTodoController);
 
-todoRouter.put("/:id", updateTodoController);
+todoRouter.put("/:id", authenticateUser, updateTodoController);
 
-todoRouter.delete("/:id", deleteTodoController);
+todoRouter.delete("/:id", authenticateUser, deleteTodoController);
 
 export {todoRouter};
