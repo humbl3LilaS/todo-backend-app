@@ -10,8 +10,11 @@ export const login = async (req: Request, res: Response) => {
         const accessToken = generateToken({username, id: foundUser!._id});
         res.json({accessToken});
     } catch (e) {
-        console.log("login error: ", e);
-        res.status(400).json({error: "Login failed"});
+        if (e instanceof Error) {
+            res.status(400).json({error: e.message});
+        } else {
+            res.status(400).json({error: "Login failed"});
+        }
     }
 };
 
