@@ -5,9 +5,9 @@ import {QueryInterface, TUserSchema} from "../types/schemaTypes";
 
 export const login = async (req: Request, res: Response) => {
     try {
-        const {username, password} = req.body;
-        const foundUser = await getUserByCredentials(username, password) as unknown as QueryInterface<TUserSchema>;
-        const accessToken = generateToken({username, id: foundUser!._id});
+        const {email, password} = req.body;
+        const foundUser = await getUserByCredentials(email, password) as unknown as QueryInterface<TUserSchema>;
+        const accessToken = generateToken({email, id: foundUser!._id});
         res.json({accessToken});
     } catch (e) {
         if (e instanceof Error) {

@@ -6,8 +6,8 @@ export const createUser = async (username: string, password: string, email: stri
     return user;
 };
 
-export const getUserByCredentials = async (username: string, password: string) => {
-    const user = await UserSchema.findOne({username});
+export const getUserByCredentials = async (email: string, password: string) => {
+    const user = await UserSchema.findOne({email});
     if (!user) {
         throw new Error("User not found");
     }

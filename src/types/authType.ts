@@ -1,4 +1,4 @@
 export type TAuthenticatedUser = {
-    username: string;
+    email: string;
     id: string;
 }
