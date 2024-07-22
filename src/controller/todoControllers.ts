@@ -2,16 +2,20 @@ import {Request, Response} from "express";
 import {createTodo, deleteTodo, getAllTodos, getFilteredTodo, getTodoById, updateTodo} from "../service/TodosServices";
 import mongoose, {ModifyResult} from "mongoose";
 import {QueryType, TodoSearchQuery, TTodoSchema} from "../types/schemaTypes";
+import {TAuthenticatedUser} from "../types/authType";
 
 export const getAllTodosController = async (req: Request, res: Response) => {
     try {
         const queryType = req.query.queryType as QueryType;
+        // @ts-ignore
+        const user = req.user as TAuthenticatedUser;
         if (queryType) {
             const searchQuery = req.query as TodoSearchQuery<typeof queryType>;
             const result = await getFilteredTodo(searchQuery);
             res.status(200).json(result);
         } else {
-            const allTodos = await getAllTodos();
+            const allTodos = await getAllTodos(user.id);
+            console.log(allTodos)
             return res.status(200).json(allTodos);
         }
     } catch (e) {

@@ -2,7 +2,7 @@ import {TodoSchema} from "../schema/TodoSchema";
 import {QueryType, TodoSearchQuery, TTodoSchema} from "../types/schemaTypes";
 import {equal} from "node:assert";
 
-export const getAllTodos = async () => TodoSchema.find({}, undefined, {
+export const getAllTodos = async (authorId: string) => TodoSchema.find({author: authorId}, undefined, {
     lean: true,
     projection: undefined
 }).populate("author", "username");
