@@ -18,3 +18,11 @@ export const getUserByCredentials = async (email: string, password: string) => {
     }
     return user;
 };
+
+export const getUserById = async (id: string) => {
+    const user = await UserSchema.findById(id).select("email _id username");
+    if (!user) {
+        throw new Error("User not found");
+    }
+    return user;
+};
