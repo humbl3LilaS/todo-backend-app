@@ -24,7 +24,6 @@ export const signup = async (req: Request, res: Response) => {
         const {username, password, email} = req.body;
         const newUser = await createUser(username, password, email);
         const accessToken = generateToken({username, id: newUser._id});
-        res.json({accessToken});
     } catch (e) {
         res.status(400).json({error: "Signup Error"});
     }

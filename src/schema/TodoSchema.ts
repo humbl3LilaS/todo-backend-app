@@ -3,7 +3,7 @@ import {TTodoSchema} from "../types/schemaTypes";
 
 const todosSchema = new mongoose.Schema<TTodoSchema>({
     // @ts-ignore
-    author      : { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
+    author: {type: mongoose.Schema.Types.ObjectId, ref: 'Users'},
     content: {
         type: String,
         required: [true, "Content is required"]
@@ -25,6 +25,10 @@ const todosSchema = new mongoose.Schema<TTodoSchema>({
     },
     dueAt: {
         type: Number,
+    },
+    importance: {
+        type: Boolean,
+        default: false,
     }
 });
 
