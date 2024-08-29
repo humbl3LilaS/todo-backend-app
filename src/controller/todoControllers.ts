@@ -9,7 +9,9 @@ export const getAllTodosController = async (req: Request, res: Response) => {
         // @ts-ignore
         const user = req.user as TAuthenticatedUser;
         const allTodos = await getAllTodos(user.id);
-        return res.status(200).json(allTodos);
+        setTimeout(() => {
+            return res.status(200).json(allTodos);
+        }, 3000)
     } catch (e) {
         if (e instanceof mongoose.Error.DocumentNotFoundError) {
             res.status(404).json({error: e.result});
@@ -24,7 +26,9 @@ export const getTodoByIdController = async (req: Request, res: Response) => {
     try {
         const todo = await getTodoById(id);
         if (todo) {
-            res.status(200).json(todo);
+            setTimeout(() => {
+                res.status(200).json(todo);
+            }, 3000)
         } else {
             res.status(400).json({error: "Invalid TodoSchema"});
         }
@@ -42,7 +46,9 @@ export const createTodoController = async (req: Request, res: Response) => {
         if (!storedTodo) {
             res.sendStatus(400).json({error: "Bad request: Creation Failed"});
         } else {
-            res.status(201).json(storedTodo);
+            setTimeout(() => {
+                res.status(201).json(storedTodo);
+            }, 3000)
         }
     } catch (e) {
         if (e instanceof mongoose.Error.ValidationError) {
@@ -62,7 +68,9 @@ export const updateTodoController = async (req: Request, res: Response) => {
         const updatedTodo = await updateTodo(id, updateData) as unknown as ModifyResult<TTodoSchema>;
 
         if (updatedTodo.lastErrorObject?.updatedExisting) {
-            res.status(200).json(updatedTodo);
+            setTimeout(()=> {
+                res.status(200).json(updatedTodo);
+            }, 3000)
         } else {
             res.status(400).json({error: "Update Fail"});
         }
@@ -76,7 +84,9 @@ export const deleteTodoController = async (req: Request, res: Response) => {
     const id = req.params.id;
     try {
         const deletedTodo = await deleteTodo(id);
-        res.status(200).json(deletedTodo);
+        setTimeout(() => {
+            res.status(200).json(deletedTodo);
+        }, 3000)
     } catch (e) {
         if (e instanceof mongoose.Error.CastError) {
             res.status(400).json({error: "No such Id"});
