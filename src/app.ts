@@ -9,8 +9,11 @@ import {userRouter} from "./routes/User";
 
 const app = express();
 app.use(bodyParser.json());
-app.use(cors({origin: '*'}));
-
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization', "Authentication"]
+}));
 const PORT = process.env.PORT || 3000;
 
 app.use("/api/v1/todos", todoRouter);
