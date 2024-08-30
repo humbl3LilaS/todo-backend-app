@@ -9,7 +9,7 @@ import {userRouter} from "./routes/User";
 
 const app = express();
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({origin: '*'}));
 
 const PORT = process.env.PORT || 3000;
 
