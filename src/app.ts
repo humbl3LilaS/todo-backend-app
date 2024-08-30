@@ -29,3 +29,6 @@ try {
     });
 } catch (e) {
 }
+
+
+export default app;
